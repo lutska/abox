@@ -11,7 +11,7 @@ spec:
     # uses. It was gemini-gemini-2-5-flash, but that object was never shipped
     # in releases/ -- it was created by hand and did not survive the cluster
     # being rebuilt, leaving the agent stuck on ReconcileFailed.
-    modelConfig: default-model-config
+    modelConfig: openai-gpt-5-mini
     stream: true
     systemMessage: |
       You are a data agent over two stores in this cluster. Which products
