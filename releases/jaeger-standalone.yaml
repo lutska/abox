@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jaeger-standalone
+  namespace: otel-demo
+  labels:
+    app: jaeger-standalone
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jaeger-standalone
+  template:
+    metadata:
+      labels:
+        app: jaeger-standalone
+    spec:
+      containers:
+        - name: jaeger
+          image: jaegertracing/all-in-one:1.76.0
+          args:
+            - "--memory.max-traces=10000"
+          env:
+            - name: COLLECTOR_OTLP_ENABLED
+              value: "true"
+          ports:
+            - name: otlp-grpc
+              containerPort: 4317
+            - name: otlp-http
+              containerPort: 4318
+            - name: query
+              containerPort: 16686
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 600Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaeger
+  namespace: otel-demo
+spec:
+  selector:
+    app: jaeger-standalone
+  ports:
+    - name: otlp-grpc
+      port: 4317
+      targetPort: 4317
+    - name: otlp-http
+      port: 4318
+      targetPort: 4318
+    - name: query
+      port: 16686
+      targetPort: 16686

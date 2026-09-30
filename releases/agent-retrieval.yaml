@@ -3,6 +3,8 @@ kind: Agent
 metadata:
   name: retrieval-agent
   namespace: kagent
+  annotations:
+    kustomize.toolkit.fluxcd.io/reconcile: disabled
 spec:
   type: Declarative
   description: Ingests and retrieves data across a vector store and a graph.

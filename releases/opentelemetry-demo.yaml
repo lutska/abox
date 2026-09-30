@@ -87,7 +87,7 @@ spec:
     # (releases/mlflow.yaml) via the bridge collector
     # (releases/mlflow-otel-collector.yaml), same as triage-core.
     jaeger:
-      enabled: false
+      enabled: true
     prometheus:
       enabled: false
     grafana:

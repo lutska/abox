@@ -90,16 +90,20 @@ spec:
           tls:
             insecure: true
           headers:
-            x-mlflow-experiment-id: "2"
+            x-mlflow-experiment-id: "1"
         otlp_http/mlflow-otel-demo:
           endpoint: http://mlflow-mlflow.mlflow.svc.cluster.local:5000
           tls:
             insecure: true
           headers:
-            x-mlflow-experiment-id: "3"
+            x-mlflow-experiment-id: "2"
       # jaeger/zipkin removed outright, not just dropped from the traces
       # pipeline below -- the collector refuses to start with a receiver
       # defined but not referenced by any pipeline.
+        otlp/phoenix:
+          endpoint: phoenix-svc.phoenix.svc.cluster.local:4317
+          tls:
+            insecure: true
       receivers:
         jaeger: null
         zipkin: null
@@ -109,7 +113,7 @@ spec:
             receivers:
               - otlp
             exporters:
-              # debug logs every received span once, pre-routing, to the
+              # debug logs every receiveFd span once, pre-routing, to the
               # pod's stdout -- useful to confirm traces are arriving at all
               # before checking which experiment they landed in.
               - debug
@@ -124,3 +128,4 @@ spec:
               - routing
             exporters:
               - otlp_http/mlflow-otel-demo
+              - otlp/phoenix
