@@ -105,9 +105,22 @@ OpenTelemetry provides the underlying spans and gen_ai.* semantic attributes. It
 
 Jaeger proves that the standard OTEL data already contains useful GenAI information. We could expand ChatLLM.chat and inspect the prompt, response, attributes and latency, but these are presented as conventional trace/span data.
 
+ ![jaeger screnshot 1](images/jaeger-1.png) ![jaeger screenshot 2](images/jaeger-2.png) 
+
+
+
 MLflow interprets that telemetry specifically for GenAI. In our trace it made the model, prompt/response, 4,285 tokens, 13.38 s latency, and $0.002542 cost easy to inspect.
 
+
+ ![MLlow screnshot 1](images/mlflow-1.png) ![MLflow screenshot 2](images/mlflow-2.png) 
+
+
+
 Phoenix also interprets the trace as GenAI telemetry and provided particularly detailed LLM information. For the same interaction we saw 4,285 tokens = 3,132 input + 1,153 output, approximately 13.3 s latency, messages, model information, finish reason, and available tool schemas.
+
+
+ ![Phoenix screnshot 1](images/phoenix-1.png) ![Phoenix screenshot 2](images/phoenix-2.png) 
+
 
 
 ### Key observations
